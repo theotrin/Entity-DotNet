@@ -15,11 +15,14 @@ public class TokenService
         [
             new Claim("username", usuario.UserName),
             new Claim("id", usuario.Id),
-            new Claim(ClaimTypes.DateOfBirth, usuario.DataNascimento.ToString())
+            new Claim(ClaimTypes.DateOfBirth, usuario.DataNascimento.ToString()),
+            new Claim("loginTimestamp", DateTime.UtcNow.ToString()),
         ];
 
         var chave = 
-            new SymmetricSecurityKey(Encoding.UTF8.GetBytes("a098s8rujgakpj392j!@agjp3AAJ123J12M32K110NOSKD10"));
+            new SymmetricSecurityKey
+            (Encoding.UTF8.GetBytes
+            ("a098s8rujgakpj392j!@agjp3AAJ123J12M32K110NOSKD10"));
 
         var signingCredentials = 
             new SigningCredentials(chave,SecurityAlgorithms.HmacSha256);
