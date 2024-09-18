@@ -13,7 +13,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-var connString = builder.Configuration.GetConnectionString("UsuarioConnection");
+var connString = builder.Configuration["ConnectionStrings:UsuarioConnection"];
 builder.Services.AddDbContext<UsuarioDbContext>(
     opts =>
     {
@@ -46,7 +46,7 @@ builder.Services.AddAuthentication(options =>
         ValidateIssuerSigningKey = true,
         IssuerSigningKey = new SymmetricSecurityKey
             (Encoding.UTF8.GetBytes
-            ("a098s8rujgakpj392j!@agjp3AAJ123J12M32K110NOSKD10")),
+            (builder.Configuration["SymmetricSecurityKey"])),
         ValidateAudience = false,
         ValidateIssuer = false,
         ClockSkew = TimeSpan.Zero,

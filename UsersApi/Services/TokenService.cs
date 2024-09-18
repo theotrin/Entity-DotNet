@@ -5,10 +5,18 @@ using System.Security.Claims;
 using System.Text;
 using UsersApi.Models;
 
+
 namespace UsersApi.Services;
 
 public class TokenService
 {
+    private IConfiguration _configuration;
+
+    public TokenService(IConfiguration configuration)
+    {
+        _configuration = configuration;
+    }
+
     public string GenerateToken(Usuario usuario)
     {
         Claim[] claims =
@@ -22,7 +30,7 @@ public class TokenService
         var chave = 
             new SymmetricSecurityKey
             (Encoding.UTF8.GetBytes
-            ("a098s8rujgakpj392j!@agjp3AAJ123J12M32K110NOSKD10"));
+            (_configuration["SymmetricSecurityKey"]));
 
         var signingCredentials = 
             new SigningCredentials(chave,SecurityAlgorithms.HmacSha256);
